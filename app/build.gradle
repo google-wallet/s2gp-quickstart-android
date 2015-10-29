@@ -1,0 +1,37 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+//        applicationId "com.google.checkout.android.demo"
+        applicationId "com.google.android.gms.samples.wallet"
+        minSdkVersion 10
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.0.1'
+    compile 'com.google.android.gms:play-services:7.8.0'
+//    compile 'com.google.android.gms:play-services-base'
+//    compile(name:'google-play-services-second-party-6188000', ext:'aar')
+    compile(name:'google-play-services-wallet-second-party-7097000', ext:'aar')
+
+}

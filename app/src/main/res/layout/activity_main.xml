@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1">
+
+    <ImageButton
+        android:onClick="saveToWallet"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/savetowallet"
+        android:src="@drawable/savecardtogoogle"
+        android:longClickable="false"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="#0000"
+        android:clickable="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/s2wResponse"
+        android:layout_weight="0.25" />
+</LinearLayout>
+
