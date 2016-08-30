@@ -10,7 +10,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/savetowallet"
-        android:src="@drawable/savecardtogoogle"
+        android:src="@drawable/s2ap"
         android:longClickable="false"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"

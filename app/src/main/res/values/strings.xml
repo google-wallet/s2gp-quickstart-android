@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Demo</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">S2AP Quickstart</string>
+
+    <string name="ISSUER_ID">2967745143867465930</string>
+    <string name="LOYALTY_CLASS_ID">01_LoyaltyClass</string>
+    <string name="LOYALTY_OBJECT_ID">01_LoyaltyObjectId_11</string>
+    <string name="GIFTCARD_CLASS_ID">GiftCardClass1501161237</string>
+    <string name="GIFTCARD_OBJECT_ID">GiftCardObjectBarcodeTextTest4</string>
+    <string name="OFFER_CLASS_ID">OfferClassTest</string>
+    <string name="OFFER_OBJECT_ID">OfferObjectActiv8</string>
+
+    <string name="SUCCESS_RESPONSE_TEXT">saved</string>
+    <string name="CANCELED_RESPONSE_TEXT">canceled</string>
+    <string name="ERROR_PREFIX_TEXT">failed error code: </string>
 
 </resources>
