@@ -28,12 +28,16 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.wallet.AutoResolvableVoidResult;
+import com.google.android.gms.wallet.AutoResolveHelper;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wallet.CreateWalletObjectsRequest;
 import com.google.android.gms.wallet.LoyaltyWalletObject;
 import com.google.android.gms.wallet.OfferWalletObject;
 import com.google.android.gms.wallet.GiftCardWalletObject;
 import com.google.android.gms.wallet.Wallet;
 import com.google.android.gms.wallet.WalletConstants;
+import com.google.android.gms.wallet.WalletObjectsClient;
 import com.google.android.gms.wallet.wobs.LabelValue;
 import com.google.android.gms.wallet.wobs.LabelValueRow;
 import com.google.android.gms.wallet.wobs.LoyaltyPoints;
@@ -50,7 +54,7 @@ public class MainActivity extends FragmentActivity
         implements GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "MainActivity";
-    public static final int SAVE_TO_WALLET = 888;
+    public static final int SAVE_TO_ANDROID = 888;
 
     private String ISSUER_ID;
     private String LOYALTY_CLASS_ID;
@@ -66,13 +70,12 @@ public class MainActivity extends FragmentActivity
     public static final Scope WOB =
             new Scope("https://www.googleapis.com/auth/wallet_object.issuer");
 
-    private GoogleApiClient mgoogleApiClient;
+    private WalletObjectsClient walletObjectsClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mgoogleApiClient = createGoogleApiClient();
 
         ISSUER_ID = getResources().getString(R.string.ISSUER_ID);
         LOYALTY_CLASS_ID = getResources().getString(R.string.LOYALTY_CLASS_ID);
@@ -86,29 +89,28 @@ public class MainActivity extends FragmentActivity
         ERROR_PREFIX_TEXT = getResources().getString(R.string.ERROR_PREFIX_TEXT);
     }
 
-    private GoogleApiClient createGoogleApiClient() {
-        return new GoogleApiClient
-                .Builder(this).enableAutoManage(this,this)
-                              .addApi(Wallet.API, new Wallet.WalletOptions.Builder()
-                              .setEnvironment(WalletConstants.ENVIRONMENT_TEST)
-                              .setTheme(WalletConstants.THEME_DARK).build()).build();
-    }
-
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Log.w(TAG, "onConnectionFailed: " + result);
     }
 
-    public void saveToWallet(View view) {
-        OfferWalletObject wob = generateOfferWalletObject();
+    public void saveToAndroid(View view) {
+        LoyaltyWalletObject wob = generateLoyaltyWalletObject();
         CreateWalletObjectsRequest request = new CreateWalletObjectsRequest(wob);
-        Wallet.WalletObjects.createWalletObjects(mgoogleApiClient, request, SAVE_TO_WALLET);
+        Wallet.WalletOptions walletOptions = new Wallet.WalletOptions.Builder()
+                .setTheme(WalletConstants.THEME_LIGHT)
+                .setEnvironment(WalletConstants.ENVIRONMENT_PRODUCTION)
+                .build();
+
+        walletObjectsClient = Wallet.getWalletObjectsClient(this, walletOptions);
+        Task<AutoResolvableVoidResult> task = walletObjectsClient.createWalletObjects(request);
+        AutoResolveHelper.resolveTask(task, this, SAVE_TO_ANDROID);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         EditText textBox = (EditText) findViewById(R.id.s2wResponse);
         switch (requestCode) {
-            case SAVE_TO_WALLET:
+            case SAVE_TO_ANDROID:
                 switch (resultCode) {
                     case Activity.RESULT_OK:
                         textBox.setText(SUCCESS_RESPONSE_TEXT);
