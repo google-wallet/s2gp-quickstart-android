@@ -13,7 +13,7 @@
 -->
 <resources>
 
-    <string name="app_name">S2AP Quickstart</string>
+    <string name="app_name">S2GP Quickstart</string>
 
     <string name="ISSUER_ID">2967745143867465930</string>
     <string name="LOYALTY_CLASS_ID">01_LoyaltyClass</string>
