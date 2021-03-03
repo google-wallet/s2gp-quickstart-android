@@ -1,4 +1,4 @@
-# s2ap-quickstart-android
+# s2gp-quickstart-android
 Demonstrates how to use Save to Google Pay (S2GP) in an Android app. It relies on the Android API in Google Play Services.
 
 This sample showcases the creation of valuable objects.
